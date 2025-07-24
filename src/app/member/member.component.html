@@ -1,0 +1,35 @@
+<div class="container card mt-4 p-4 shadow-sm rounded-4 bg-light">
+    <h2 class="mb-3 text-center text-primary">Welcome, {{ member?.name }}</h2>
+  
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Email:</strong> {{ member?.email }}</p>
+        <p><strong>Phone:</strong> {{ member?.phone }}</p>
+        <p><strong>Address:</strong> {{ member?.address }}</p>
+      </div>
+  
+      <div class="col-md-6">
+        <p><strong>Expiry Date:</strong> {{ member?.membershipExpiryDate }}</p>
+        <p><strong>Borrowing Limit:</strong> {{ member?.borrowingLimit }}</p>
+        <p><strong>Role:</strong> {{ member?.role }}</p>
+      </div>
+    </div>
+  
+    <hr />
+  
+    <div class="row text-center mt-3">
+      <div class="col">
+        <h5>Books Borrowed</h5>
+        <p>{{ member?.transactions?.length || 0 }}</p>
+      </div>
+      <div class="col">
+        <h5>Pending Fines</h5>
+        <p>{{ member?.fines?.length || 0 }}</p>
+      </div>
+      <div class="col">
+        <h5>Notifications</h5>
+        <p>{{ member?.notifications?.length || 0 }}</p>
+      </div>
+    </div>
+  </div>
+  

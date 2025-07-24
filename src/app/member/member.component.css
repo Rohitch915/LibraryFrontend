@@ -1,0 +1,18 @@
+.container {
+    max-width: 800px;
+    margin: auto;
+    background-color: #fdfdfd;
+    border-radius: 1rem;
+    padding: 2rem;
+  }
+  
+  h2 {
+    font-weight: bold;
+  }
+  
+  .badge {
+    font-size: 1em;
+    padding: 0.5em 1em;
+    border-radius: 0.5rem;
+  }
+  
