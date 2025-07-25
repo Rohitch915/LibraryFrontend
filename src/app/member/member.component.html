@@ -1,35 +1,40 @@
-<div class="container card mt-4 p-4 shadow-sm rounded-4 bg-light">
-    <h2 class="mb-3 text-center text-primary">Welcome, {{ member?.name }}</h2>
-  
-    <div class="row">
-      <div class="col-md-6">
-        <p><strong>Email:</strong> {{ member?.email }}</p>
-        <p><strong>Phone:</strong> {{ member?.phone }}</p>
-        <p><strong>Address:</strong> {{ member?.address }}</p>
-      </div>
-  
-      <div class="col-md-6">
-        <p><strong>Expiry Date:</strong> {{ member?.membershipExpiryDate }}</p>
-        <p><strong>Borrowing Limit:</strong> {{ member?.borrowingLimit }}</p>
-        <p><strong>Role:</strong> {{ member?.role }}</p>
-      </div>
-    </div>
-  
-    <hr />
-  
-    <div class="row text-center mt-3">
-      <div class="col">
-        <h5>Books Borrowed</h5>
-        <p>{{ member?.transactions?.length || 0 }}</p>
-      </div>
-      <div class="col">
-        <h5>Pending Fines</h5>
-        <p>{{ member?.fines?.length || 0 }}</p>
-      </div>
-      <div class="col">
-        <h5>Notifications</h5>
-        <p>{{ member?.notifications?.length || 0 }}</p>
-      </div>
-    </div>
+<!-- navbar.component.html -->
+<nav class="navbar">
+  <div class="logo">📚 MyLibrary</div>
+  <!-- <div>Hello, {{</div> -->
+  <ul class="nav-links">
+    <li><a routerLink="/home">Home</a></li>
+    <li><a routerLink="/notifications">Notifications</a></li>
+    <li><a routerLink="/fines">Fines</a></li>
+    <li><a routerLink="/history">History</a></li>
+  </ul>
+  <div class="search-container">
+    <input 
+  type="text" 
+  placeholder="Search by name, author, or genre..." 
+  [(ngModel)]="searchTerm" 
+  (input)="filterBooks()" 
+  class="form-control mb-4"
+/>
+    <button class="search-btn"(click)="filterBooks()">🔍</button>
   </div>
-  
+</nav>
+<div class="book-list">
+<div class="book-card" *ngFor="let book of filteredBooks">
+  <h4>{{ book.bookName }}</h4>
+  <p><strong>Author:</strong> {{ book.author }}</p>
+  <p><strong>Genre:</strong> {{ book.genre }}</p>
+  <p class="meta"><strong>ISBN:</strong> {{ book.isbn }}</p>
+  <p class="meta"><strong>Published:</strong> {{ book.yearPublished }}</p>
+  <p [ngClass]="book.availableCopies > 0 ? 'availability' : 'unavailable'">
+    {{ book.availableCopies > 0 ? 'Available' : 'Unavailable' }}
+  </p>
+  <button [disabled]="book.availableCopies === 0" (click)="borrowBook(book.bookId)">
+    {{ book.availableCopies > 0 ? 'Borrow' : 'Not Available' }}
+  </button>
+</div>
+</div>
+
+
+
+

@@ -1,37 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+// library.component.ts
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-member',
+  selector: 'member',
+  standalone:true,
+  imports:[FormsModule,CommonModule],
   templateUrl: './member.component.html',
   styleUrls: ['./member.component.css']
 })
-export class MemberComponent implements OnInit {
-  member: any;
+export class MemberComponent {
+  books: any[] = [];
+  searchTerm: string = '';
+  filteredBooks: any[] = []; 
+  
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.fetchBooks();
+  }
 
-  ngOnInit() {
-    const token = localStorage.getItem('authToken');
-    const memberId:Number = Number(localStorage.getItem('memberId'));
-    console.log("sed");
-    
-    if (!token || !memberId) {
-      console.error('Token or memberId missing');
-      return;
-    }
-
-
-    const headers = new HttpHeaders().set('Authorization', `Basic ${token}`);
-this.http.get(`http://localhost:4321/member/${memberId}/profile`, { headers })
-  .subscribe({
-    next: (data) => {
-      this.member = data
-      console.log(this.member);
+  fetchBooks() {
+    this.http.get('http://localhost:4321/books/get-books').subscribe(data => {
       
-    },
-    error: (err) => console.error('Failed to fetch member data:', err)
-  });
+      this.books = data as any[];
+    this.filteredBooks = this.books;
+    });
+  }
 
+  filterBooks() {
+    const term = this.searchTerm.toLowerCase();
+    console.log(term);
+    
+    this.filteredBooks = this.books.filter(book =>
+      book.bookName.toLowerCase().includes(term) ||
+      book.author.toLowerCase().includes(term) ||
+      book.genre.toLowerCase().includes(term)
+    );
+  }
+
+  onSearch() {
+    this.http.get(`http://localhost:4321/books/search?term=${this.searchTerm}`)
+      .subscribe(data => {
+        this.books = data as any[];
+      });
+  }
+
+  borrowBook(bookId: number) {
+    this.http.post(`http://localhost:4321/books/borrow/${bookId}`, {})
+      .subscribe(() => alert('Book borrowed successfully!'));
   }
 }

@@ -10,6 +10,7 @@ import { FinesComponent } from './fines/fines.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MainHomeComponent } from './main-home/main-home.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 const routes: Routes = [
 
@@ -17,10 +18,11 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'member', component: MemberComponent },
     { path: '', component: MainHomeComponent },
-    { path: 'notifications', component: NotificationsComponent },
-    { path: 'history', component: BorrowingHistoryComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'fines', component: FinesComponent }
+  //   { path: 'notifications', component: NotificationsComponent },
+  //   { path: 'history', component: BorrowingHistoryComponent },
+  //   { path: 'profile', component: ProfileComponent },
+  //   { path: 'fines', component: FinesComponent },
+    { path: 'registration', component: RegistrationComponent },
   ];
   
 

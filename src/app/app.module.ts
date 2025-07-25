@@ -8,17 +8,26 @@ import { AuthService } from './auth.service';
 import { AuthInterceptor } from './auth.interceptor';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { RegistrationComponent } from './registration/registration.component';
 
 
-const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'dashboard', component: LoginComponent }
-];
+// const routes: Routes = [
+//   { path: '', component: LoginComponent },
+//   { path: 'dashboard', component: LoginComponent },
+//   { path: 'register', component: RegistrationComponent },
+// ];
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
-  imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(routes),
-    AppRoutingModule
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegistrationComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule // ✅ use only this for routes
   ],
   providers: [
     AuthService,
